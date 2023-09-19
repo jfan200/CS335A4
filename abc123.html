@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="https://cws.auckland.ac.nz/335P12023/webapi/Logo"/>
+    <title>Ako Māori</title>
+    <link href="abc123.css" rel="stylesheet" type="text/css">
+    <script src="abc123.js"></script>
+
+
+
+</head>
+
+
+<body>
+    <div id="navi" style="text-align: center;">
+        <div style="display: none">
+            <h2 id="user"> </h2>
+        </div>
+
+        <ul>
+            <li onclick="showHome()"><a style="padding: 0.5vw 2vw"><img id="logo" src="https://cws.auckland.ac.nz/335P12023/webapi/Logo" style="width:5vw" class="logo"/></a></li>
+
+            <li onclick="showHome();"><a> &#127968;  Home </a></li>
+
+            <li onclick="showGuest();"><a> &#128214;  Guest Book </a></li>
+
+            <li onclick="showShop();"><a>  &#128722;  Shop </a></li>
+
+            <li onclick="showUser();" id="register_button" ><a> &#128105;  Registration </a></li>
+
+            <li onclick="showLogin();" id='login_button'><a> &#128100; Login </a></li>
+
+            <li onclick="UserLogout();" id="logout_button" style="display: none"><a>  &#128274; logout </a></li>
+
+            <li onclick="showEvent();"><a> 📅 Events </a></li>
+
+            <li onclick="showLearning();"><a> 📖 Learning te reo </a></li>
+        </ul>
+    </div>
+
+    <div id="popup_window">
+        <button id="openPopup" style="display: none"></button>
+        <div class="popup" id="popup">
+            <div class="popup-content">
+                <span class="close" id="closePopup">&times;</span>
+                <div id="popup_content"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Home">
+        <h1>Home</h1>
+        <div id="intro">
+            <h3>Introduction</h3>
+            <p>You are no doubt aware of the revitalisation of te reo Māori, an essential part of Aotearoa New Zealand's heritage. To this end, we aim to design and develop Ako Māori, a web application to learn te reo Māori, assisting beginners. The web app employs a service-oriented architecture, encompassing a UI front-end and a service back-end. The first two assignments asked you to contribute to constructing the service back-end, and this assignment continues your journey in helping to construct the front-end.
+                <br>
+                This assignment examines the separation of data from the UI, and how such data can be consumed and utilized in the end-user application. A subsequent assignment will delve into potential vulnerabilities that may surface when such an architecture is poorly implemented.
+                <br>
+                In the first two assignments, you implemented a handful of data sources that provide and update key information content. These data sources facilitate the separation of information content from its presentation.</p>
+        </div>
+    </div>
+
+    <div id="Guest_Book" style="display: none">
+        <h1> Guest Book</h1>
+        <div class="container">
+            <div class="col-50-left">
+                <h2>Recent comments</h2>
+                <div class="container" style="background-color: black">
+                    <div id="Comments" ></div>
+                </div>
+            </div>
+            <div class="col-50-right">
+                <h2>Write your comment</h2>
+                <div>
+                    <div class="col-25">
+                        <label for="username_content">Username</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="username_content" name="username_content" placeholder="Enter our username..">
+                    </div>
+                </div>
+                <div>
+                    <div class="col-25">
+                        <label for="user_content">Comment</label>
+                    </div>
+                    <div class="col-75">
+                        <textarea id="user_content" name="user_content" placeholder="Write your comment here.." style="height:200px"></textarea>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <input onclick="CommentSubmit()" type="submit" value="Submit your comment">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div id="Shop" class="container" style="display: none">
+        <h1>Shop</h1>
+        <div id="shop_content">
+            <input type="text" id="mySearch" onkeyup="ProductSearch()" placeholder="Search for product name.." title="Type in a category"
+                   style="width: 100%; height: 2vw">
+            <div id="product_table">
+            </div>
+        </div>
+    </div>
+
+    <div id="User_Registration" style="display: none" class="container">
+        <h1>Registration</h1>
+
+        <div class="form">
+            <div>
+                <p>User Name</p>
+                <input type="text" id="UserNameInput">
+            </div>
+            <div>
+                <p>Password</p>
+                <input type="text" id="UserPasswordInput">
+            </div>
+            <div>
+                <p>Address</p>
+                <input type="text" id="AddressInput">
+            </div>
+            <button type="button" onclick="UserRegister()">Submit</button>
+        </div>
+
+    </div>
+
+    <div id="Login" style="display: none" class="container">
+        <h1>Login</h1>
+
+        <div class="form">
+            <div>
+                <p>User Name</p>
+                <input type="text" id="LoginNameInput">
+            </div>
+            <div>
+                <p>Password</p>
+                <input type="password" id="LoginPasswordInput">
+            </div>
+            <button type="button" onclick="UserLogin()">Submit</button>
+        </div>
+        </div>
+
+
+    <div id="Event" class="container" style="display: none">
+        <h1>Events</h1>
+        <div id="event_content">
+            <div id="events_table"></div>
+        </div>
+    </div>
+
+    <div id="Learning" class="container" style="display: none">
+        <h1>Learning te reo</h1>
+        <div class="container">
+            <div class="quiz">
+                <h3>Question:</h3>
+                <div id="Question:"></div><br>
+                <h3>Select one of the options that matches to the question!</h3>
+                <div id="Options"></div>
+            </div><br>
+            <button id="check" onclick="getQuiz()">Refresh</button>
+        </div>
+        <table id=learning_table" style="width: 70%; margin-left: 15%">
+
+        </table>
+    </div>
+
+    <div style="text-align: center; bottom: 0">
+        <p1 id="version"></p1>
+    </div>
+
+
+</body>
+</html>
